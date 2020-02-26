@@ -137,6 +137,10 @@ public class RNPushNotificationHelper {
 
     public void sendToNotificationCentre(Bundle bundle) {
         try {
+            // fix hide notificaiton when app is running
+            Boolean isForeground = bundle.getBoolean("foreground");
+            if (isForeground) return;
+            
             Class intentClass = getMainActivityClass();
             if (intentClass == null) {
                 Log.e(LOG_TAG, "No activity class found for the notification");
